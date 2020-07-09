@@ -22,7 +22,7 @@ export default class Model {
       constructor(){
         this.allCharacters = [];
         this.searchingCharacters = [];
-        this.canSearch = true;
+        this.intID = 0;
         }   
 
         init = () => {
@@ -39,19 +39,10 @@ export default class Model {
         bindOnCharactersChange(fn){
           this.onCharactersChange = fn;
         }
-        onSearch = event => {
-          event.preventDefault()
-          if(event.target["childNodes"][1].value.trim() !== "" && this.canSearch){
-            this.canSearch = false;
-            this.onSearching(searchCharacter(event.target["childNodes"][1].value,this.allCharacters));
-            setTimeout(() => this.canSearch = true,1500)
-          }
-        }
         onInputChange = event => {
-          if(event.target.value.trim() !== "" && this.canSearch){
-            this.canSearch = false;
-            this.onSearching(searchCharacter(event.target.value,this.allCharacters));
-            setTimeout(() => this.canSearch = true,1500)
+          if(event.target.value.trim() !== ""){
+            clearTimeout(this.intID)
+            this.intID = setTimeout(() => this.onSearching(searchCharacter(event.target.value,this.allCharacters)),300)
           }else if(event.target.value.trim() === ""){
             this.charactersChange(this.allCharacters)
           }

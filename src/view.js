@@ -41,18 +41,14 @@ function openModal(character){
  export default class View {
     constructor() {
       this.app = document.getElementById("app")
-      this.search = document.getElementById("search")
       this.input = document.getElementById("myInput")
     }
     onCharactersChange = characters => {
       this.app.innerHTML = "";
       this.app.appendChild(charactersChange(characters))
     }
-    bindOnSearch = fn => {
-      this.search.onsubmit = fn
-    }
     bindOnInputChange = fn => {
-      this.input.onchange = fn
+      this.input.onkeyup = fn
     }
   }
   
