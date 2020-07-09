@@ -18,34 +18,39 @@ function searchCharacter(text,characters){
           ))
 }
 
+function isEmpty(text){
+  text.trim()
+  if(text) return false
+  return true
+}
+
 export default class Model {
       constructor(){
-        this.allCharacters = [];
-        this.searchingCharacters = [];
-        this.intID = 0;
+          this.allCharacters = [];
+          this.searchingCharacters = [];
+          this.intID = 0;
         }   
-
         init = () => {
-              getCharacters().then(this.charactersChange)
+            getCharacters().then(this.charactersChange)
         }
         charactersChange = (characters) => {
             this.allCharacters = characters;
             this.onCharactersChange(characters)
         }
         onSearching(characters){
-          this.searchingCharacters = characters;
-          this.onCharactersChange(characters)
+            this.searchingCharacters = characters;
+            this.onCharactersChange(characters)
         }
         bindOnCharactersChange(fn){
-          this.onCharactersChange = fn;
+            this.onCharactersChange = fn;
         }
-        onInputChange = event => {
-          if(event.target.value.trim() !== ""){
-            clearTimeout(this.intID)
-            this.intID = setTimeout(() => this.onSearching(searchCharacter(event.target.value,this.allCharacters)),300)
-          }else if(event.target.value.trim() === ""){
-            this.charactersChange(this.allCharacters)
-          }
+        onInputChange = ({target}) => {
+            if(!isEmpty(target.value)){
+                clearTimeout(this.intID)
+                this.intID = setTimeout(() => this.onSearching(searchCharacter(target.value,this.allCharacters)),300)
+            } else if(isEmpty(target.value)){
+                this.charactersChange(this.allCharacters)
+            }
         }
   }
   

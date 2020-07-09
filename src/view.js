@@ -48,7 +48,7 @@ function openModal(character){
       this.app.appendChild(charactersChange(characters))
     }
     bindOnInputChange = fn => {
-      this.input.onkeyup = fn
+      this.input.onkeyup = fn;
     }
   }
   
