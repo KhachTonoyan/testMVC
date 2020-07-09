@@ -8,6 +8,8 @@ class Controller {
 
       this.model.init()
       this.model.bindOnCharactersChange(this.view.onCharactersChange)
+      this.view.bindOnSearch(this.model.onSearch)
+      this.view.bindOnInputChange(this.model.onInputChange)
     }
   }
   
